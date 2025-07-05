@@ -1,0 +1,4 @@
+<Files "apple-app-site-association">
+AddType application/json .json .webapp .webmanifest .siteassocication
+ForceType application/json
+</Files>
