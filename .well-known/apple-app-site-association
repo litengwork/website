@@ -3,12 +3,12 @@
     "apps": [],
     "details": [
       {
-        "appID": "F7MHRHP76V.jp.co.example",
+        "appID": "D9F3Q3SJ67.jp.co.example",
         "paths": ["/"]
       }
     ]
   },
   "webcredentials": {
-    "apps": ["F7MHRHP76V.jp.co.example"]
+    "apps": ["D9F3Q3SJ67.jp.co.example"]
   }
 }
