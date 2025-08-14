@@ -35,4 +35,13 @@
 
 <a href="https://www.surugabank.co.jp/surugabank/kojin/service/bankpay/kitei/" class="long-link" target="_blank" rel="noreferrer noopener">BankPay取引規定</a>
 </body>
+
+<script>
+document.addEventListener("click", (event) => {
+  const link = event.target.closest('a[target="_blank"]');
+  if (!link) return;
+  window.parent.postMessage({ type: "blank-link-click", href: link.href }, "*");
+});
+</script>
+
 </html>
