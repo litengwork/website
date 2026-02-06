@@ -1,31 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>>ポーリング例</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    #htmlContainer div { padding: 2px 5px; border-bottom: 1px solid #ccc; margin-bottom: 5px; }
-    button { padding: 5px 10px; margin-top: 10px; }
-  </style>
+  <title>Redirecting...</title>
+  <script>
+    (function () {
+      const target = "https://wbv.frnt.teppay.jp/version/1/?loginInfo=1234";
+
+      document.addEventListener("DOMContentLoaded", function () {
+        window.location.replace(target);
+      });
+    })();
+  </script>
 </head>
 <body>
-  <h1>ポーリング例</h1>
-  <button id="addBtn">ポーリング実行を開始</button>
-  <div id="htmlContainer"></div>
-  <script>
-    document.getElementById("addBtn").onclick = async () => {
-      setInterval(async () => {
-        const url = 'https://www.googleapis.com/books/v1/volumes?q=harry+potter';
-        fetch(url).then(res => res.json()).then(data => {
-          const container = document.getElementById("htmlContainer");
-          const div = document.createElement("div");
-          div.innerHTML = "<p>" + new Date().toLocaleTimeString() + data.items[0].volumeInfo.title + "</p>";
-          container.appendChild(div);
-        });
-      }, 2000);
-    };
-  </script>
+  リダイレクト中
 </body>
 </html>
+
