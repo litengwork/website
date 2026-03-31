@@ -1,20 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Redirecting...</title>
-  <script>
-    (function () {
-      const target = "https://wbv.frnt.teppay.jp/version/1/?loginInfo=1234";
-
-      document.addEventListener("DOMContentLoaded", function () {
-        window.location.replace(target);
-      });
-    })();
-  </script>
+    <title>カメラ</title>
 </head>
 <body>
-  リダイレクト中
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">拍照</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script>
+        // 1. 获取摄像头权限
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                var video = document.getElementById('video');
+                video.srcObject = stream; // 2. 将视频流赋值给video元素
+                video.play();
+            })
+            .catch(function(err) {
+                console.error("无法访问摄像头: " + err);
+            });
+
+        // 3. 拍照功能 (可选)
+        document.getElementById('snap').addEventListener('click', function() {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            context.drawImage(document.getElementById('video'), 0, 0, 640, 480);
+        });
+    </script>
 </body>
 </html>
-
