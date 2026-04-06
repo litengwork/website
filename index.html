@@ -12,13 +12,10 @@
   <script>
     const referrer = document.referrer;
 
-    if (!referrer) {
-      document.getElementById("result").innerHTML =
-        "❌ 当前是【地址栏直接访问 / 粘贴访问】";
-    } else {
+    
       document.getElementById("result").innerHTML =
         "✅ 当前是【点击进入】<br>来源：" + referrer;
-    }
+    
 
     console.log("Referrer:", referrer);
   </script>
