@@ -1,31 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-    <title>カメラ</title>
+  <meta charset="UTF-8" />
+  <title>访问来源检测 Demo</title>
 </head>
 <body>
-    <video id="video" width="640" height="480" autoplay></video>
-    <button id="snap">拍照</button>
-    <canvas id="canvas" width="640" height="480"></canvas>
+  <h2>访问来源检测</h2>
 
-    <script>
-        // 1. 获取摄像头权限
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function(stream) {
-                var video = document.getElementById('video');
-                video.srcObject = stream; // 2. 将视频流赋值给video元素
-                video.play();
-            })
-            .catch(function(err) {
-                console.error("无法访问摄像头: " + err);
-            });
+  <div id="result"></div>
 
-        // 3. 拍照功能 (可选)
-        document.getElementById('snap').addEventListener('click', function() {
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
-            context.drawImage(document.getElementById('video'), 0, 0, 640, 480);
-        });
-    </script>
+  <script>
+    const referrer = document.referrer;
+
+    if (!referrer) {
+      document.getElementById("result").innerHTML =
+        "❌ 当前是【地址栏直接访问 / 粘贴访问】";
+    } else {
+      document.getElementById("result").innerHTML =
+        "✅ 当前是【点击进入】<br>来源：" + referrer;
+    }
+
+    console.log("Referrer:", referrer);
+  </script>
 </body>
 </html>
