@@ -1,23 +1,88 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-  <meta charset="UTF-8" />
-  <title>访问来源检测 Demo</title>
-</head>
-<body>
-  <h2>访问来源检测</h2>
+<style>
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #000;
+}
 
-  <div id="result"></div>
+/* 上半部分：取景框 */
+.preview {
+  flex: 1;
+  position: relative;
+}
 
-  <script>
-    const referrer = document.referrer;
+.preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 填满且不变形 */
+}
 
-    
-      document.getElementById("result").innerHTML =
-        "✅ 当前是【点击进入】<br>来源：" + referrer;
-    
+/* 下半部分：按钮区域 */
+.controls {
+  padding: 20px;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 
-    console.log("Referrer:", referrer);
-  </script>
-</body>
-</html>
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background: #fff;
+}
+</style>
+
+<div class="container">
+  <!-- 上：摄像头 -->
+  <div class="preview">
+    <video id="video" autoplay playsinline></video>
+  </div>
+
+  <!-- 下：按钮 -->
+  <div class="controls">
+    <button onclick="switchCamera()">切换</button>
+    <button onclick="takePhoto()">拍照</button>
+  </div>
+</div>
+
+<script>
+let currentFacing = "user";
+let stream = null;
+
+async function startCamera() {
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
+
+  stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: currentFacing }
+  });
+
+  document.getElementById("video").srcObject = stream;
+}
+
+function switchCamera() {
+  currentFacing = currentFacing === "user" ? "environment" : "user";
+  startCamera();
+}
+
+function takePhoto() {
+  const video = document.getElementById("video");
+  const canvas = document.createElement("canvas");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0);
+
+  const base64 = canvas.toDataURL("image/png");
+  console.log(base64);
+}
+
+startCamera();
+</script>
