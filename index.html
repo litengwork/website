@@ -1,93 +1,88 @@
-<style>
-  html {
-  -webkit-text-size-adjust: auto;
-}
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: #000;
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>text-size-adjust テスト（完全版）</title>
 
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 20px;
+    }
 
-.preview {
-  flex: 1;
-  position: relative;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .box {
+      margin-bottom: 30px;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
 
-.preview video {
-  width: 100%;
-  height: 80vh;
-  object-fit: cover;
-}
-.controls {
-  padding: 20px;
-  background: #111;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
+    /* ❌ 自動調整なし */
+    .none {
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+    }
 
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  background: #fff;
-}
-</style>
+    /* ✅ 推奨 */
+    .normal {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
 
-<div class="container">
-  <!-- 上：摄像头 -->
-  <div class="preview">
-    <video id="video" autoplay playsinline></video>
+    /* ⚠️ デフォルト動作 */
+    .auto {
+      -webkit-text-size-adjust: auto;
+      text-size-adjust: auto;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>text-size-adjust 動作比較テスト</h2>
+
+  <div class="box none">
+    <div class="title">❌ none（自動拡大なし）</div>
+    <div class="content">
+      これはテスト用の文章です。これはテスト用の文章です。これはテスト用の文章です。<br>
+      👉 システムの文字サイズを変更しても、このエリアは変化しません。
+    </div>
   </div>
 
-  <!-- 下：按钮 -->
-  <div class="controls">
-    <button onclick="switchCamera()">切换</button>
-    <button onclick="takePhoto()">拍照</button>
+  <div class="box normal">
+    <div class="title">✅ 100% 指定</div>
+    <div class="content">
+      これはテスト用の文章です。これはテスト用の文章です。これはテスト用の文章です。<br>
+      👉 システム設定に応じて自然に変化します。
+    </div>
   </div>
-</div>
 
-<script>
-let currentFacing = "user";
-let stream = null;
+  <div class="box auto">
+    <div class="title">⚠️ auto（ブラウザ任せ）</div>
+    <div class="content">
+      これはテスト用の文章です。これはテスト用の文章です。これはテスト用の文章です。<br>
+      👉 iOSでは自動的に拡大される場合があります（挙動は不安定）。
+    </div>
+  </div>
 
-async function startCamera() {
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-  }
+  <div class="box">
+    <div class="title">⚠️ 未指定（デフォルト）</div>
+    <div class="content">
+      これはテスト用の文章です。これはテスト用の文章です。これはテスト用の文章です。<br>
+      👉 autoとほぼ同じ挙動になります。
+    </div>
+  </div>
 
-  stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: currentFacing }
-  });
-
-  document.getElementById("video").srcObject = stream;
-}
-
-function switchCamera() {
-  currentFacing = currentFacing === "user" ? "environment" : "user";
-  startCamera();
-}
-
-function takePhoto() {
-  const video = document.getElementById("video");
-  const canvas = document.createElement("canvas");
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(video, 0, 0);
-
-  const base64 = canvas.toDataURL("image/png");
-  console.log(base64);
-}
-
-startCamera();
-</script>
+</body>
+</html>
