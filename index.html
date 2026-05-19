@@ -9,6 +9,7 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       padding: 20px;
+      overflow: hidden; /* 隐藏滚动条 */
     }
 
     .box {
@@ -49,7 +50,11 @@
 </head>
 
 <body>
-
+<script>
+  window.onload = function() {
+    window.scrollTo(0, 1);
+};
+</script>/
   <h2>text-size-adjust 動作比較テスト</h2>
 
   <div class="box none">
