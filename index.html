@@ -14,6 +14,29 @@
       padding: 20px;
     }
 
+	  /* 默认竖屏样式：按钮居中或底部 */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* 监听 iPhone 横屏旋转 */
+@media screen and (orientation: landscape) {
+  .container {
+    /* 改变主轴方向为水平，并将内容两端对齐 */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .my-button {
+    /* 将按钮移动到最右侧 */
+    margin-left: auto; 
+  }
+}
+	  
     .box {
       margin-bottom: 30px;
       padding: 15px;
@@ -61,7 +84,7 @@
 </script>/
   <h2>text-size-adjust 動作比較テスト</h2>
 
-  <div class="box none">
+  <div class="container">
     <div class="title">❌ none（自動拡大なし）</div>
     <div class="content">
       これはテスト用の文章です。これはテスト用の文章です。これはテスト用の文章です。<br>
@@ -130,6 +153,6 @@
       👉 autoとほぼ同じ挙動になります。
     </div>
   </div>
-
+<button class="my-button">点击操作</button>
 </body>
 </html>
