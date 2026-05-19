@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>text-size-adjust テスト（完全版）</title>
 
   <style>
@@ -52,13 +54,9 @@
 <body>
 <script>
   window.onload=function(){
-				if(document.documentElement.scrollHeight <= document.documentElement.clientHeight) {
-					bodyTag = document.getElementsByTagName('body')[0];
-					bodyTag.style.height = document.documentElement.clientWidth / screen.width * screen.height + 'px';
-				}
 				setTimeout(function() {
 					window.scrollTo(0, 1)
-				}, 0);
+				}, 3000);
 			};
 </script>/
   <h2>text-size-adjust 動作比較テスト</h2>
