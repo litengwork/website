@@ -149,7 +149,13 @@ function quickHideAddressBar() {
 
 	}, 1000);
 
+	
 }
+	function toggleReadonly() {
+      const input = document.getElementById('myInput');
+      input.readOnly = !input.readOnly;
+      console.log('readonly:', input.readOnly);
+    }
 </script>/
   <h2>text-size-adjust 動作比較テスト</h2>
 
@@ -157,7 +163,23 @@ function quickHideAddressBar() {
   ファイルを選ぶ
   <input type="file"  accept="image/*" capture="camera">
 </label>
-  
+
+	
+  <button onclick="toggleReadonly()">切换 readonly</button>
+
+  <input
+    id="myInput"
+    type="text"
+    value="测试内容"
+    readonly
+    style="
+      width:300px;
+      height:50px;
+      font-size:18px;
+      margin:20px;
+    "
+  />
+
 
 </body>
 </html>
